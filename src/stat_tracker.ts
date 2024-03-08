@@ -61,12 +61,6 @@ class StatOption {
 
 }
 
-const parikuModStorage = {
-    bluehearts: 0,
-    blackhearts: 0,
-    statExtensions: Array.from({length: 13})
-};
-
 const cacheFlagToPlayerStat: number[] = [];
 cacheFlagToPlayerStat[CacheFlag.DAMAGE] = PlayerStat.DAMAGE;
 cacheFlagToPlayerStat[CacheFlag.FIRE_DELAY] = PlayerStat.FIRE_DELAY;
@@ -76,6 +70,8 @@ cacheFlagToPlayerStat[CacheFlag.SPEED] = PlayerStat.MOVE_SPEED;
 cacheFlagToPlayerStat[CacheFlag.FLYING] = PlayerStat.FLYING;
 cacheFlagToPlayerStat[CacheFlag.LUCK] = PlayerStat.LUCK;
 cacheFlagToPlayerStat[CacheFlag.SIZE] = PlayerStat.SIZE;
+
+const statExtensions = Array.from({length: 13})
 
 
 export function init(mod: ModUpgraded): void {
@@ -137,23 +133,23 @@ function initStats() {
 
     const seeds: Seeds = Game().GetSeeds();
 
-    parikuModStorage.statExtensions[0] = getRandomFromWeightedArray(one, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[1] = getRandomFromWeightedArray(two, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[2] = getRandomFromWeightedArray(three, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[3] = getRandomFromWeightedArray(four, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[4] = getRandomFromWeightedArray(five, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[5] = getRandomFromWeightedArray(six, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[6] = getRandomFromWeightedArray(seven, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[7] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[0] = getRandomFromWeightedArray(one, seeds.GetNextSeed());
+    statExtensions[1] = getRandomFromWeightedArray(two, seeds.GetNextSeed());
+    statExtensions[2] = getRandomFromWeightedArray(three, seeds.GetNextSeed());
+    statExtensions[3] = getRandomFromWeightedArray(four, seeds.GetNextSeed());
+    statExtensions[4] = getRandomFromWeightedArray(five, seeds.GetNextSeed());
+    statExtensions[5] = getRandomFromWeightedArray(six, seeds.GetNextSeed());
+    statExtensions[6] = getRandomFromWeightedArray(seven, seeds.GetNextSeed());
+    statExtensions[7] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
 
     // The following are for testing and are not final.
-    parikuModStorage.statExtensions[8] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[9] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[10] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[11] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    parikuModStorage.statExtensions[12] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[8] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[9] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[10] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[11] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[12] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
 
-    for (let o of parikuModStorage.statExtensions) {
+    for (let o of statExtensions) {
         let stat = o as StatOption;
 
         Isaac.DebugString(`Registered stat change of ${  stat.ToString()}`);
@@ -174,7 +170,7 @@ function initStats() {
     parikuModStorage.bluehearts = blue;
 }*/
 
-function updateHealth(player: EntityPlayer, type: HealthType, diff: int) {
+export function updateHealth(player: EntityPlayer, type: HealthType, diff: int): void {
     // TODO
     if (type === HealthType.SOUL || type === HealthType.BLACK) {
         Isaac.DebugString("Updating health");
@@ -183,16 +179,12 @@ function updateHealth(player: EntityPlayer, type: HealthType, diff: int) {
         player.EvaluateItems();
     }
 
-
-
-
-
 }
 
 function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
 
 
-    const currentHealth = player.GetBlackHearts() + player.GetSoulHearts();
+    const currentHealth = player.GetSoulHearts();
     const half: int = Math.floor((currentHealth + 1) / 2);
     const convertedFlag = cacheFlagToPlayerStat[flag];
 
@@ -206,17 +198,18 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         Isaac.DebugString(`Loop at ${  i} and half is at ${half}`);
 
 
-        if (parikuModStorage.statExtensions[i] === undefined) {
+        if (statExtensions[i] === undefined) {
             Isaac.DebugString(`Could not find stat lookup at index${  i}`);
             continue;
         }
 
-        const stat = parikuModStorage.statExtensions[i] as StatOption;
+        const stat = statExtensions[i] as StatOption;
         Isaac.DebugString(`Checking stat ${  stat.ToString()} with the flag being ${flagname} (${convertedFlag})`);
 
         if (stat.DoesApply(convertedFlag)) {
             stat.Apply(player);
-            Isaac.DebugString(`Increased stat for type ${  convertedFlag}`);
+            Isaac.DebugString(`Increased stat for type ${  convertedFlag }`);
+
         }
     }
 }
