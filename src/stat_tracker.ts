@@ -1,6 +1,6 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { getRandomFromWeightedArray, nextSeed, PlayerStat,  ModCallbackCustom } from "isaacscript-common";
-import type {ModUpgraded} from "isaacscript-common";
+import type { ModUpgraded} from "isaacscript-common";
+import { getRandomFromWeightedArray, nextSeed, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
 
 /** Modifies the stats of the player based on the player stat passed to the array */
 const ModifyStats = [ // Array index is PlayerStat (int)
@@ -47,7 +47,7 @@ class StatOption {
     }
 
     DoesApply(s: number): boolean {
-        return s === this.stat || s === CacheFlag.ALL || s === 1024;
+        return s === this.stat || s === CacheFlag.ALL;
     }
 
     Apply(player: EntityPlayer): void {
@@ -67,10 +67,20 @@ const parikuModStorage = {
     statExtensions: Array.from({length: 13})
 };
 
+const cacheFlagToPlayerStat: number[] = [];
+cacheFlagToPlayerStat[CacheFlag.DAMAGE] = PlayerStat.DAMAGE;
+cacheFlagToPlayerStat[CacheFlag.FIRE_DELAY] = PlayerStat.FIRE_DELAY;
+cacheFlagToPlayerStat[CacheFlag.SHOT_SPEED] = PlayerStat.SHOT_SPEED;
+cacheFlagToPlayerStat[CacheFlag.RANGE] = PlayerStat.TEAR_RANGE;
+cacheFlagToPlayerStat[CacheFlag.SPEED] = PlayerStat.MOVE_SPEED;
+cacheFlagToPlayerStat[CacheFlag.FLYING] = PlayerStat.FLYING;
+cacheFlagToPlayerStat[CacheFlag.LUCK] = PlayerStat.LUCK;
+cacheFlagToPlayerStat[CacheFlag.SIZE] = PlayerStat.SIZE;
 
 
 export function init(mod: ModUpgraded): void {
-    mod.AddCallbackCustom(ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED, update);
+    // mod.AddCallbackCustom(ModCallbackCustom.POST_PLAYER_UPDATE_REORDERED, update);
+    mod.AddCallbackCustom(ModCallbackCustom.POST_PLAYER_CHANGE_HEALTH, updateHealth)
     mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, (_) => { initStats(); }, undefined);
     mod.AddCallback(ModCallback.EVALUATE_CACHE, evaluateCache);
 }
@@ -153,7 +163,7 @@ function initStats() {
 
 
 
-function update(player: EntityPlayer) {
+/* function update(player: EntityPlayer) {
     const blue = player.GetSoulHearts();
 
     if (blue !== parikuModStorage.bluehearts) {
@@ -162,24 +172,35 @@ function update(player: EntityPlayer) {
     }
 
     parikuModStorage.bluehearts = blue;
-}
+}*/
 
-function updateHealth(player: EntityPlayer) {
+function updateHealth(player: EntityPlayer, type: HealthType, diff: int) {
     // TODO
+    if (type === HealthType.SOUL || type === HealthType.BLACK) {
+        Isaac.DebugString("Updating health");
 
-    Isaac.DebugString("Updating health");
+        player.AddCacheFlags(CacheFlag.ALL);
+        player.EvaluateItems();
+    }
 
-    player.AddCacheFlags(CacheFlag.ALL);
-    player.EvaluateItems();
+
 
 
 
 }
 
 function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
+
+
     const currentHealth = player.GetBlackHearts() + player.GetSoulHearts();
     const half: int = Math.floor((currentHealth + 1) / 2);
-    const flagname = PlayerStat[flag];
+    const convertedFlag = cacheFlagToPlayerStat[flag];
+
+    if (convertedFlag === undefined) { // Means it isn't a stat we should be checking for
+        return;
+    }
+
+    const flagname = PlayerStat[convertedFlag];
 
     for (let i = 0; i < half; i++) {
         Isaac.DebugString(`Loop at ${  i} and half is at ${half}`);
@@ -191,11 +212,11 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         }
 
         const stat = parikuModStorage.statExtensions[i] as StatOption;
-        Isaac.DebugString(`Checking stat ${  stat.ToString()} with the flag being ${flagname} (${flag})`);
+        Isaac.DebugString(`Checking stat ${  stat.ToString()} with the flag being ${flagname} (${convertedFlag})`);
 
-        if (stat.DoesApply(flag)) {
+        if (stat.DoesApply(convertedFlag)) {
             stat.Apply(player);
-            Isaac.DebugString(`Increased stat for type ${  flag}`);
+            Isaac.DebugString(`Increased stat for type ${  convertedFlag}`);
         }
     }
 }
