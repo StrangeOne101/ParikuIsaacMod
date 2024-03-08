@@ -1,8 +1,8 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import type { ModUpgraded} from "isaacscript-common";
-import { getRandomFromWeightedArray, nextSeed, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
+import { getRandomFromWeightedArray, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
 
-/** Modifies the stats of the player based on the player stat passed to the array */
+/** Modifies the stats of the player based on the player stat passed to the array. */
 const ModifyStats = [ // Array index is PlayerStat (int)
     // Damage
     (player: EntityPlayer, value: number, multiply: boolean) => { player.Damage = (multiply ? player.Damage * value : player.Damage + value) },
@@ -21,15 +21,21 @@ const ModifyStats = [ // Array index is PlayerStat (int)
     // Speed
     (player: EntityPlayer, value: number, multiply: boolean) => { player.MoveSpeed = (multiply ? player.MoveSpeed * value : player.MoveSpeed + value) },
     // Tear flags
-    (player: EntityPlayer, value: number, multiply: boolean) => {  },
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    (_player: EntityPlayer, _value: number, _multiply: boolean) => {  },
     // Tear color
-    (player: EntityPlayer, value: number, multiply: boolean) => {  },
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    (_player: EntityPlayer, _value: number, _multiply: boolean) => {  },
     // Flight
-    (player: EntityPlayer, value: number, multiply: boolean) => { player.CanFly = (value % 2 === 1) },
+    (player: EntityPlayer, value: number, _multiply: boolean) => { player.CanFly = (value % 2 === 1) },
     // Luck
     (player: EntityPlayer, value: number, multiply: boolean) => { player.Luck = (multiply ? player.Luck * value : player.Luck + value) },
     // Size
-    (player: EntityPlayer, value: number, multiply: boolean) => {  },
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    (_player: EntityPlayer, _value: number, _multiply: boolean) => {  },
 ] as const
 
 class StatOption {
@@ -47,7 +53,7 @@ class StatOption {
     }
 
     DoesApply(s: number): boolean {
-        return s === this.stat || s === CacheFlag.ALL;
+        return s === this.stat as number || s === CacheFlag.ALL;
     }
 
     Apply(player: EntityPlayer): void {
@@ -149,8 +155,8 @@ function initStats() {
     statExtensions[11] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
     statExtensions[12] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
 
-    for (let o of statExtensions) {
-        let stat = o as StatOption;
+    for (const o of statExtensions) {
+        const stat = o as StatOption;
 
         Isaac.DebugString(`Registered stat change of ${  stat.ToString()}`);
     }
@@ -170,7 +176,7 @@ function initStats() {
     parikuModStorage.bluehearts = blue;
 }*/
 
-export function updateHealth(player: EntityPlayer, type: HealthType, diff: int): void {
+export function updateHealth(player: EntityPlayer, type: HealthType, _diff: int): void {
     // TODO
     if (type === HealthType.SOUL || type === HealthType.BLACK) {
         Isaac.DebugString("Updating health");
