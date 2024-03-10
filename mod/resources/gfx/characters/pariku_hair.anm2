@@ -1,11 +1,11 @@
 <AnimatedActor>
-	<Info CreatedBy="robot" CreatedOn="25/02/2024 2:44:23 pm" Version="117" Fps="30"/>
+	<Info CreatedBy="robot" CreatedOn="10/03/2024 6:11:24 pm" Version="118" Fps="30"/>
 	<Content>
 		<Spritesheets>
 			<Spritesheet Path="costumes\costume_pariku_hair.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
-			<Layer Name="head1" Id="0" SpritesheetId="0"/>
+			<Layer Name="head0" Id="0" SpritesheetId="0"/>
 		</Layers>
 		<Nulls/>
 		<Events/>

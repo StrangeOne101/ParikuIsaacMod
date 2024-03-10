@@ -1,6 +1,7 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import type { ModUpgraded} from "isaacscript-common";
 import { getRandomFromWeightedArray, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
+import { PARIKU_TYPE } from "./constants";
 
 /** Modifies the stats of the player based on the player stat passed to the array. */
 const ModifyStats = [ // Array index is PlayerStat (int)
@@ -178,8 +179,11 @@ function initStats() {
 
 export function updateHealth(player: EntityPlayer, type: HealthType, _diff: int): void {
     // TODO
+    if (player.GetPlayerType() !== PARIKU_TYPE) {
+        return;
+    }
+
     if (type === HealthType.SOUL || type === HealthType.BLACK) {
-        Isaac.DebugString("Updating health");
 
         player.AddCacheFlags(CacheFlag.ALL);
         player.EvaluateItems();
@@ -188,6 +192,10 @@ export function updateHealth(player: EntityPlayer, type: HealthType, _diff: int)
 }
 
 function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
+
+    if (player.GetPlayerType() !== PARIKU_TYPE) {
+        return;
+    }
 
 
     const currentHealth = player.GetSoulHearts();

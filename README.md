@@ -1,24 +1,31 @@
-# pariku
+# Pariku Isaac Mod
 
-pariku is a mod for [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/), written in [TypeScript](https://www.typescriptlang.org/) using the [IsaacScript](https://isaacscript.github.io/) framework.
+This is a mod for [_The Binding of Isaac: Repentance_](https://store.steampowered.com/app/1426300/The_Binding_of_Isaac_Repentance/), written in [TypeScript](https://www.typescriptlang.org/) using the [IsaacScript](https://isaacscript.github.io/) framework.
 
-## How To Play
+It adds a new character, Pariku, to the game. The character is based of the streamer, ParikuYumi, but stands as its own character within Isaac.
 
-For normal people, you can play the mod by subscribing to it on [the Steam Workshop](https://steamcommunity.com/app/250900/workshop/). (Subscribing to the mod will automatically download and install it once you launch the game.)
+Lore wise, Pariku is the daughter of Lilith, and has deep control over souls. The more souls she controls, the stronger she becomes. In game, the more soul hearts you have, the stronger the character is. Losing these hearts, however, will make the stat buffs revert.
 
-## How To Compile
+## Installing
 
-If you are a developer, or if the mod is not yet uploaded to the Steam Workshop, you can play the mod by compiling the TypeScript code into a "main.lua" file. Perform the following steps:
+1. You can install it from the steam workshop HERE (subscribe to the mod and it will be added automatically).
+2. You can download the zip file from releases and put it in your mods folder.
 
-- Download and install [Node.js](https://nodejs.org/en/download/) (Windows Installer .msi, 64-bit).
-- Download and install [Git](https://git-scm.com/download/win) (64-bit Git for Windows setup).
-- Download (or clone) this repository:
-  - Click on the "Code" button in the top-right-corner of this page.
-  - Click on "Download ZIP".
-- Unzip the zip file to a new directory.
-- Open the command prompt (or another shell of your choice).
-- Use the `cd` command to navigate to the place where you unzipped the repository.
-- Use the `npm ci` command to install the project dependencies.
-- Use the `npx isaacscript` command to start the IsaacScript watcher.
-- If IsaacScript is successful, you will see "Compilation successful." (You can continue to leave the terminal window open; it will monitor for changes in your project, and recompile if necessary.)
-- Completely close Isaac if it is already open, and then open the game again, and the mod should be in the list of mods. You can now play or test the mod.
+## Contributing
+
+If you have suggestions, or find any bugs, please let me know. You can do so HERE.
+
+If you want to see more content in this mod, such as new items and features, please consider donating! All sprites are commissioned and as such, cost a bit to get done. Donations means we can continue to create content for the mod with amazing art that doesn't ruin the aesthetic.
+
+## Compiling
+
+1. Download and install [Node.js](https://nodejs.org/en/download/).
+2. Download the source code for the mod
+3. Unzip the zip file to a new directory.
+3. Open the command prompt (or another shell of your choice).
+4. Use the `cd` command to navigate to the place where you unzipped the repository.
+5. Use the `npx isaacscript` command to start the IsaacScript watcher.
+
+If IsaacScript is successful, you will see "Compilation successful." (You can continue to leave the terminal window open; it will monitor for changes in your project, and recompile if necessary.)
+
+With the mod successfully compiled, you can reopen Isaac to see the mod in the list of mods.
