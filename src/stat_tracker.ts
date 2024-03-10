@@ -91,51 +91,50 @@ export function init(mod: ModUpgraded): void {
 function initStats() {
     Isaac.DebugString("StatTracker initStats called");
     const one: Array<[StatOption, float]> = [ // One heart
-        [new StatOption(PlayerStat.TEAR_RANGE, 0.8), 10], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 1.2 * 40), 10], // Stat, weight. *40 for range since tiles are 40 pixels
         [new StatOption(PlayerStat.MOVE_SPEED, 0.3), 15],
     ];
     const two: Array<[StatOption, float]> = [ // Two hearts
-        [new StatOption(PlayerStat.TEAR_RANGE, 1.5), 8], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8], // Stat, weight
         [new StatOption(PlayerStat.MOVE_SPEED, 0.5), 12],
         [new StatOption(PlayerStat.LUCK, 1), 8],
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
     ];
     const three: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.TEAR_RANGE, 1), 8], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8], // Stat, weight
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
-        [new StatOption(PlayerStat.SHOT_SPEED, 0.5), 10],
+        [new StatOption(PlayerStat.SHOT_SPEED, 0.15), 10],
     ];
     const four: Array<[StatOption, float]> = [ // Two are chosen at 4
-        [new StatOption(PlayerStat.TEAR_RANGE, 1.8), 8], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 2 * 40), 8], // Stat, weight
         [new StatOption(PlayerStat.DAMAGE, 1.9), 15],
-        [new StatOption(PlayerStat.SHOT_SPEED, 1.5), 10],
+        [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.LUCK, 2.5), 6],
     ];
     const five: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.TEAR_RANGE, 1.5), 6], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 1.5 * 40), 6], // Stat, weight
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
-        [new StatOption(PlayerStat.SHOT_SPEED, 0.5), 10],
+        [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, -0.5), 8],
     ];
     const six: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.DAMAGE, 1.2, true), 15], // Multiplier
-        [new StatOption(PlayerStat.SHOT_SPEED, 1.5, true), 10],
+        [new StatOption(PlayerStat.DAMAGE, 1.8, true), 15], // Multiplier
         [new StatOption(PlayerStat.FIRE_DELAY, -0.8), 10],
+        [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10],
+        [new StatOption(PlayerStat.LUCK, 4), 3],
     ];
     const seven: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.DAMAGE, 1.4), 8], // Multiplier
-        [new StatOption(PlayerStat.SHOT_SPEED, 1.5), 10],
-        [new StatOption(PlayerStat.FIRE_DELAY, -0.2), 10],
-        [new StatOption(PlayerStat.TEAR_RANGE, 3.5), 8],
+        [new StatOption(PlayerStat.DAMAGE, 2.5), 10],
+        [new StatOption(PlayerStat.FIRE_DELAY, -0.5), 10],
+        [new StatOption(PlayerStat.TEAR_RANGE, 4.5 * 40), 8],
         [new StatOption(PlayerStat.LUCK, 3), 10],
     ];
     const eight: Array<[StatOption, float]> = [ // Two are chosen
-        [new StatOption(PlayerStat.DAMAGE, 1.9), 15],
-        [new StatOption(PlayerStat.SHOT_SPEED, 1.5), 10],
+        [new StatOption(PlayerStat.DAMAGE, 2.5), 15],
         [new StatOption(PlayerStat.FIRE_DELAY, -0.4), 10],
-        [new StatOption(PlayerStat.TEAR_RANGE, 3.5), 8],
+        [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10],
+        [new StatOption(PlayerStat.TEAR_RANGE, 3.5 * 40), 8],
         [new StatOption(PlayerStat.DAMAGE, 1.1, true), 15],
-        [new StatOption(PlayerStat.SHOT_SPEED, 1.3, true), 10],
     ];
 
     const seeds: Seeds = Game().GetSeeds();
