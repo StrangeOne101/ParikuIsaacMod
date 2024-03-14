@@ -13,7 +13,6 @@ function addHair(player: EntityPlayer) {
 function gameStart() {
     for (const player of getPlayers(false)) {
         if (player.GetPlayerType() === PARIKU_TYPE) {
-            player.AddSoulHearts(2); // 1 heart
             player.AddCacheFlags(CacheFlag.ALL);
             player.EvaluateItems();
         }
