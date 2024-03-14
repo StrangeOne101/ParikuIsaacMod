@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import type { ModUpgraded} from "isaacscript-common";
 import { getRandomFromWeightedArray, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
@@ -64,8 +65,28 @@ class StatOption {
     ToString():string {
         return `[${  PlayerStat[this.stat]  },${ this.multiply ? "x" : "+"}${  this.amount  }]`;
     }
+}
 
+class DoubleStatOption extends StatOption {
+    otherStatOption: StatOption;
 
+    constructor(stat: PlayerStat, amount: number, otherStatOption: StatOption, multiply?: boolean) {
+        super(stat, amount, multiply);
+
+        this.otherStatOption = otherStatOption;
+    }
+
+    DoesApply2(s: number): boolean {
+        return s === this.otherStatOption.stat as number || s === CacheFlag.ALL;
+    }
+
+    Apply2(player: EntityPlayer): void {
+        ModifyStats[this.otherStatOption.stat].call(this, player, this.otherStatOption.amount, this.otherStatOption.multiply);
+    }
+
+    override ToString():string {
+        return `[${  PlayerStat[this.stat]  },${ this.multiply ? "x" : "+"}${  this.amount  }&${  this.otherStatOption.ToString()  }]`;
+    }
 }
 
 const cacheFlagToPlayerStat: number[] = [];
@@ -91,36 +112,36 @@ export function init(mod: ModUpgraded): void {
 function initStats() {
     Isaac.DebugString("StatTracker initStats called");
     const one: Array<[StatOption, float]> = [ // One heart
-        [new StatOption(PlayerStat.TEAR_RANGE, 1.2 * 40), 10], // Stat, weight. *40 for range since tiles are 40 pixels
-        [new StatOption(PlayerStat.MOVE_SPEED, 0.3), 15],
+        [new StatOption(PlayerStat.MOVE_SPEED, 0.3), 15], // Format of Stat, value added, and weight to be chosen.
+        [new StatOption(PlayerStat.TEAR_RANGE, 1.2 * 40), 10], // *40 for range since tiles are 40 pixels
     ];
     const two: Array<[StatOption, float]> = [ // Two hearts
-        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8], // Stat, weight
-        [new StatOption(PlayerStat.MOVE_SPEED, 0.5), 12],
+        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 10],
+        [new StatOption(PlayerStat.MOVE_SPEED, 0.3), 12],
         [new StatOption(PlayerStat.LUCK, 1), 8],
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
     ];
     const three: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8],
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
         [new StatOption(PlayerStat.SHOT_SPEED, 0.15), 10],
     ];
-    const four: Array<[StatOption, float]> = [ // Two are chosen at 4
-        [new StatOption(PlayerStat.TEAR_RANGE, 2 * 40), 8], // Stat, weight
+    const four: Array<[StatOption, float]> = [ // Two are chosen at 4 hearts
+        [new StatOption(PlayerStat.TEAR_RANGE, 2 * 40), 8],
         [new StatOption(PlayerStat.DAMAGE, 1.9), 15],
         [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.LUCK, 2.5), 6],
     ];
     const five: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.TEAR_RANGE, 1.5 * 40), 6], // Stat, weight
+        [new StatOption(PlayerStat.TEAR_RANGE, 1.5 * 40), 6],
         [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
         [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, -0.5), 8],
     ];
     const six: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.DAMAGE, 1.8, true), 15], // Multiplier
+        [new StatOption(PlayerStat.DAMAGE, 1.8, true), 15], // Multiplier. x1.8 and not +1.8
         [new StatOption(PlayerStat.FIRE_DELAY, -0.8), 10],
-        [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10],
+        [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10], // 0.75x multiplier
         [new StatOption(PlayerStat.LUCK, 4), 3],
     ];
     const seven: Array<[StatOption, float]> = [
@@ -134,7 +155,7 @@ function initStats() {
         [new StatOption(PlayerStat.FIRE_DELAY, -0.4), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10],
         [new StatOption(PlayerStat.TEAR_RANGE, 3.5 * 40), 8],
-        [new StatOption(PlayerStat.DAMAGE, 1.1, true), 15],
+        [new StatOption(PlayerStat.DAMAGE, 1.25, true), 15],
     ];
 
     const seeds: Seeds = Game().GetSeeds();
@@ -142,18 +163,28 @@ function initStats() {
     statExtensions[0] = getRandomFromWeightedArray(one, seeds.GetNextSeed());
     statExtensions[1] = getRandomFromWeightedArray(two, seeds.GetNextSeed());
     statExtensions[2] = getRandomFromWeightedArray(three, seeds.GetNextSeed());
-    statExtensions[3] = getRandomFromWeightedArray(four, seeds.GetNextSeed());
+
+    const heart4Stats: StatOption = getRandomFromWeightedArray(four, seeds.GetNextSeed());
+    const heart4Stats2: StatOption = getRandomFromWeightedArray(four, seeds.GetNextSeed());
+    statExtensions[3] = new DoubleStatOption(heart4Stats.stat, heart4Stats.amount, heart4Stats2, heart4Stats.multiply);
+
     statExtensions[4] = getRandomFromWeightedArray(five, seeds.GetNextSeed());
     statExtensions[5] = getRandomFromWeightedArray(six, seeds.GetNextSeed());
     statExtensions[6] = getRandomFromWeightedArray(seven, seeds.GetNextSeed());
-    statExtensions[7] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+
+    const heart8Stats: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    const heart8Stats2: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[7] = new DoubleStatOption(heart8Stats.stat, heart8Stats.amount, heart8Stats2, heart8Stats.multiply);
 
     // The following are for testing and are not final.
     statExtensions[8] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
     statExtensions[9] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
     statExtensions[10] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
     statExtensions[11] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    statExtensions[12] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+
+    const heart12Stats: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    const heart12Stats2: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
+    statExtensions[12] = new DoubleStatOption(heart12Stats.stat, heart12Stats.amount, heart12Stats2, heart12Stats.multiply);
 
     for (const o of statExtensions) {
         const stat = o as StatOption;
@@ -205,12 +236,18 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         return;
     }
 
+    Isaac.DebugString(`Range: ${  player.TearRange}`);
+    Isaac.DebugString(`Speed: ${  player.MoveSpeed}`);
+    Isaac.DebugString(`Damage: ${  player.Damage}`);
+    Isaac.DebugString(`Fire Delay: ${  player.MaxFireDelay}`);
+    Isaac.DebugString(`Shot Speed: ${  player.ShotSpeed}`);
+    Isaac.DebugString(`Luck: ${  player.Luck}`);
+    Isaac.DebugString(`Tear Falling Speed: ${  player.TearFallingSpeed}`);
+    Isaac.DebugString(`Tear Falling Acceleration: ${  player.TearFallingAcceleration}`);
+
     const flagname = PlayerStat[convertedFlag];
 
     for (let i = 0; i < half; i++) {
-        Isaac.DebugString(`Loop at ${  i} and half is at ${half}`);
-
-
         if (statExtensions[i] === undefined) {
             Isaac.DebugString(`Could not find stat lookup at index${  i}`);
             continue;
@@ -222,6 +259,11 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         if (stat.DoesApply(convertedFlag)) {
             stat.Apply(player);
             Isaac.DebugString(`Increased stat for type ${  convertedFlag }`);
+        }
+
+        if (stat instanceof DoubleStatOption && stat.DoesApply2(convertedFlag)) {
+            stat.Apply2(player);
+            Isaac.DebugString(`Increased stat for type2 ${  convertedFlag }`);
 
         }
     }
