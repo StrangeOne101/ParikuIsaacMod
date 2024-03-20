@@ -1,3 +1,4 @@
 <players root="gfx/characters/costumes/" portraitroot="gfx/ui/boss/" nameimageroot="gfx/ui/boss/">
   <player name="Pariku" skin="character_pariku.png" hp="4" armor="2" black="0" keys="0" bombs="1" nameimage="playername_pariku.png" portrait="playerportrait_pariku.png" skinColor="-1" canShoot="true" birthright="???" />
+<player name="Tainted Pariku" skin="character_pariku_b.png" hp="4" armor="2" black="0" keys="0" bombs="1" nameimage="playername_pariku.png" portrait="playerportrait_pariku.png" skinColor="-1" canShoot="true" birthright="???"  bSkinParent="Pariku"/>
 </players>

@@ -2,7 +2,7 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import type { ModUpgraded} from "isaacscript-common";
 import { getRandomFromWeightedArray, PlayerStat,  ModCallbackCustom ,HealthType} from "isaacscript-common";
-import { PARIKU_TYPE } from "./constants";
+import { PARIKU_TYPE, TAINTED_PARIKU_TYPE } from "./constants";
 
 /** Modifies the stats of the player based on the player stat passed to the array. */
 const ModifyStats = [ // Array index is PlayerStat (int)
@@ -209,7 +209,7 @@ function initStats() {
 
 export function updateHealth(player: EntityPlayer, type: HealthType, _diff: int): void {
     // TODO
-    if (player.GetPlayerType() !== PARIKU_TYPE) {
+    if (!(player.GetPlayerType() === PARIKU_TYPE || player.GetPlayerType() === TAINTED_PARIKU_TYPE)) {
         return;
     }
 
@@ -223,7 +223,7 @@ export function updateHealth(player: EntityPlayer, type: HealthType, _diff: int)
 
 function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
 
-    if (player.GetPlayerType() !== PARIKU_TYPE) {
+    if (!(player.GetPlayerType() === PARIKU_TYPE || player.GetPlayerType() === TAINTED_PARIKU_TYPE)) {
         return;
     }
 
@@ -236,14 +236,14 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         return;
     }
 
-    Isaac.DebugString(`Range: ${  player.TearRange}`);
-    Isaac.DebugString(`Speed: ${  player.MoveSpeed}`);
-    Isaac.DebugString(`Damage: ${  player.Damage}`);
-    Isaac.DebugString(`Fire Delay: ${  player.MaxFireDelay}`);
-    Isaac.DebugString(`Shot Speed: ${  player.ShotSpeed}`);
-    Isaac.DebugString(`Luck: ${  player.Luck}`);
-    Isaac.DebugString(`Tear Falling Speed: ${  player.TearFallingSpeed}`);
-    Isaac.DebugString(`Tear Falling Acceleration: ${  player.TearFallingAcceleration}`);
+    /**
+     * Isaac.DebugString(`Range: ${ player.TearRange}`); Isaac.DebugString(`Speed: ${
+     * player.MoveSpeed}`); Isaac.DebugString(`Damage: ${ player.Damage}`); Isaac.DebugString(`Fire
+     * Delay: ${ player.MaxFireDelay}`); Isaac.DebugString(`Shot Speed: ${ player.ShotSpeed}`);
+     * Isaac.DebugString(`Luck: ${ player.Luck}`); Isaac.DebugString(`Tear Falling Speed: ${
+     * player.TearFallingSpeed}`); Isaac.DebugString(`Tear Falling Acceleration: ${
+     * player.TearFallingAcceleration}`);
+     */
 
     const flagname = PlayerStat[convertedFlag];
 
