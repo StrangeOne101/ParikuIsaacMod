@@ -1,4 +1,4 @@
 ﻿<costumes anm2root="gfx/characters/">
-  <costume anm2path="pariku_hair.anm2" type="none" priority="99" />
+  <costume id="1" anm2path="pariku_hair.anm2" type="none" priority="99" /> <!-- The ID is for Repentagon, so it is added to the character automatically -->
   <costume anm2path="pariku_hair_b.anm2" type="none" priority="99" />
 </costumes>
