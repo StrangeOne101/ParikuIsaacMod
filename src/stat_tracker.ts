@@ -138,8 +138,8 @@ function initStats() {
         [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, -0.5), 8],
     ];
-    const six: Array<[StatOption, float]> = [
-        [new StatOption(PlayerStat.DAMAGE, 1.8, true), 15], // Multiplier. x1.8 and not +1.8
+    const six: Array<[StatOption, float]> = [ // Two are chosen
+        [new StatOption(PlayerStat.DAMAGE, 1.4, true), 15], // Multiplier. x1.4 and not +1.4
         [new StatOption(PlayerStat.FIRE_DELAY, -0.8), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10], // 0.75x multiplier
         [new StatOption(PlayerStat.LUCK, 4), 3],
@@ -150,7 +150,7 @@ function initStats() {
         [new StatOption(PlayerStat.TEAR_RANGE, 4.5 * 40), 8],
         [new StatOption(PlayerStat.LUCK, 3), 10],
     ];
-    const eight: Array<[StatOption, float]> = [ // Two are chosen
+    const eight: Array<[StatOption, float]> = [ // Two are chosen at 12 hearts
         [new StatOption(PlayerStat.DAMAGE, 2.5), 15],
         [new StatOption(PlayerStat.FIRE_DELAY, -0.4), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10],
@@ -163,18 +163,16 @@ function initStats() {
     statExtensions[0] = getRandomFromWeightedArray(one, seeds.GetNextSeed());
     statExtensions[1] = getRandomFromWeightedArray(two, seeds.GetNextSeed());
     statExtensions[2] = getRandomFromWeightedArray(three, seeds.GetNextSeed());
-
-    const heart4Stats: StatOption = getRandomFromWeightedArray(four, seeds.GetNextSeed());
-    const heart4Stats2: StatOption = getRandomFromWeightedArray(four, seeds.GetNextSeed());
-    statExtensions[3] = new DoubleStatOption(heart4Stats.stat, heart4Stats.amount, heart4Stats2, heart4Stats.multiply);
+    statExtensions[3] = getRandomFromWeightedArray(four, seeds.GetNextSeed());
 
     statExtensions[4] = getRandomFromWeightedArray(five, seeds.GetNextSeed());
-    statExtensions[5] = getRandomFromWeightedArray(six, seeds.GetNextSeed());
-    statExtensions[6] = getRandomFromWeightedArray(seven, seeds.GetNextSeed());
 
-    const heart8Stats: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    const heart8Stats2: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
-    statExtensions[7] = new DoubleStatOption(heart8Stats.stat, heart8Stats.amount, heart8Stats2, heart8Stats.multiply);
+    const heart6Stats: StatOption = getRandomFromWeightedArray(six, seeds.GetNextSeed());
+    const heart6Stats2: StatOption = getRandomFromWeightedArray(six, seeds.GetNextSeed());
+    statExtensions[5] = new DoubleStatOption(heart6Stats.stat, heart6Stats.amount, heart6Stats2, heart6Stats2.multiply);
+
+    statExtensions[6] = getRandomFromWeightedArray(seven, seeds.GetNextSeed());
+    statExtensions[7] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
 
     // The following are for testing and are not final.
     statExtensions[8] = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
@@ -186,11 +184,12 @@ function initStats() {
     const heart12Stats2: StatOption = getRandomFromWeightedArray(eight, seeds.GetNextSeed());
     statExtensions[12] = new DoubleStatOption(heart12Stats.stat, heart12Stats.amount, heart12Stats2, heart12Stats.multiply);
 
-    for (const o of statExtensions) {
+
+    /* for (const o of statExtensions) {
         const stat = o as StatOption;
 
         Isaac.DebugString(`Registered stat change of ${  stat.ToString()}`);
-    }
+    }*/
 
 }
 
