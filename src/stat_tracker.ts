@@ -227,6 +227,8 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
     }
 
 
+
+
     const currentHealth = player.GetSoulHearts();
     const half: int = Math.floor((currentHealth + 1) / 2);
     const convertedFlag = cacheFlagToPlayerStat[flag];
@@ -253,16 +255,17 @@ function evaluateCache(player: EntityPlayer, flag: CacheFlag) {
         }
 
         const stat = statExtensions[i] as StatOption;
-        Isaac.DebugString(`Checking stat ${  stat.ToString()} with the flag being ${flagname} (${convertedFlag})`);
+        // Isaac.DebugString(`Checking stat ${ stat.ToString()} with the flag being ${flagname}
+        // (${convertedFlag})`);
 
         if (stat.DoesApply(convertedFlag)) {
             stat.Apply(player);
-            Isaac.DebugString(`Increased stat for type ${  convertedFlag }`);
+            // Isaac.DebugString(`Increased stat for type ${ convertedFlag }`);
         }
 
         if (stat instanceof DoubleStatOption && stat.DoesApply2(convertedFlag)) {
             stat.Apply2(player);
-            Isaac.DebugString(`Increased stat for type2 ${  convertedFlag }`);
+            // Isaac.DebugString(`Increased stat for type2 ${ convertedFlag }`);
 
         }
     }

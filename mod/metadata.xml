@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/metadata.xsd" ?>
 <metadata>
-  <name>Pariku Character Mod</name>
+  <name>Pariku, The Soul Embracer</name>
   <directory>pariku</directory>
-  <description>Adds Pariku as a playable character in The Binding Of Isaac</description>
-  <version>0.9</version>
-  <visibility />
+  <description>[img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-background.png?token=GHSAT0AAAAAACKDVQLOW7R3UZLPV2W664WEZQLXT3A[/img]
+
+This mods adds a new character, Pariku, to the game. The character is based of the streamer, [url=https://www.twitch.tv/parikuyumi]ParikuYumi[/url], but stands as its own character within Isaac.
+
+Lore wise, Pariku is the daughter of Lilith, and has deep control over souls. The more souls she controls, the stronger she becomes. In game, the more soul hearts you have, the stronger the character is. Losing these hearts, however, will make the stat buffs revert.
+
+[img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-mechanics.png?token=GHSAT0AAAAAACKDVQLPAWGRHJJVJHHOJW2QZQLXXTA[/img]
+
+As stated above, Pariku gains power the more soul hearts she posses. These manifest as “stat buffs”. and each stat buff is randomized per run. This means that some runs, you may have more damage, and other runs, more luck.
+
+Loosing these soul hearts (or black hearts) will also revert the buff. This means that you could be insanely OP during a boss fight, but loose one too many hearts, and the tables may turn!
+
+Stat buffs will also get better the more soul hearts you gain. The first few buffs will be minimal, but as you gain more than 6+ hearts, the buffs will start getting better and better.
+
+[img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-credits.png?token=GHSAT0AAAAAACKDVQLPFJIACI3Q6JCTBX24ZQLX32Q[/img]
+
+Thumnail - [url=https://twitter.com/its_nato0]ItsNato0[/url]
+Main Sprites - [url=https://discord.gg/modding-of-isaac-962027940131008653]Ferpe[/url] (See Ferpe’s commission thread)
+Programming - [url=https://github.com/StrangeOne101]StrangeOne101[/url]
+Play Testing - Eludus, Gamevarden, Pokeroller
+Pariku - [url=https://www.twitch.tv/parikuyumi]ParikuYumi[/url]
+
+These sprites and textures were all commissioned! If you’d love to see more from this mod, consider donating! This money will be put towards more high quality sprite commissions.
+
+I also highly recommend Ferpe’s textures and Nato’s art! They are fantastic artists, and are worth every cent! Please check them out if you can!
+
+[img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-future.png?token=GHSAT0AAAAAACKDVQLO23ODAPEEKL5LKZ76ZQLYG4Q[/img]
+
+As it stands, this mod is just in version 1.0. This is the initial release, and I definitely want to add more to the mod. BUT, as it stands, I want to make sure future content has the same quality as all the existing content does.
+
+This means, that although I’d love to add more content such as items and familiars (and a Tainted version of Pariku), I’d prefer if I could commission the sprites for them rather than do them myself. I’m a programmer and not an artist; I struggle with basic textures lol.
+
+So while I try to obtain funds to commission textures, I’m open to discussion on what should be added. Check out the GitHub discussions pages.
+
+[hr]
+If you find any issues with this mod, or have any suggestions, please put them on our [url=https://github.com/StrangeOne101/ParikuIsaacMod]GitHub page![/url]</description>
+  <version>1.0</version>
+  <visibility>Private</visibility>
+  <tag id="Lua"/>
+  <tag id="Player Characters"/>
+  <id>3215057720</id>
 </metadata>
