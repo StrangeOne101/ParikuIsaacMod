@@ -10,7 +10,7 @@ Lore wise, Pariku is the daughter of Lilith, and has deep control over souls. Th
 
 ## Installing
 
-1. You can install it from the steam workshop HERE (subscribe to the mod and it will be added automatically).
+1. You can install it from the steam workshop [HERE](https://steamcommunity.com/sharedfiles/filedetails/?id=3215057720) (subscribe to the mod and it will be added automatically).
 2. You can download the zip file from releases, unzip it and then put it in your mods folder.
 
 ## Contributing

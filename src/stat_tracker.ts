@@ -119,16 +119,16 @@ function initStats() {
         [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 10],
         [new StatOption(PlayerStat.MOVE_SPEED, 0.3), 12],
         [new StatOption(PlayerStat.LUCK, 1), 8],
-        [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
+        [new StatOption(PlayerStat.DAMAGE, 1), 15],
     ];
     const three: Array<[StatOption, float]> = [
         [new StatOption(PlayerStat.TEAR_RANGE, 2.4 * 40), 8],
-        [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
+        [new StatOption(PlayerStat.DAMAGE, 1), 15],
         [new StatOption(PlayerStat.SHOT_SPEED, 0.15), 10],
     ];
     const four: Array<[StatOption, float]> = [ // Two are chosen at 4 hearts
         [new StatOption(PlayerStat.TEAR_RANGE, 2 * 40), 8],
-        [new StatOption(PlayerStat.DAMAGE, 1.9), 15],
+        [new StatOption(PlayerStat.DAMAGE, 1.5), 15],
         [new StatOption(PlayerStat.SHOT_SPEED, 0.2), 10],
         [new StatOption(PlayerStat.LUCK, 2.5), 6],
     ];
@@ -139,7 +139,7 @@ function initStats() {
         [new StatOption(PlayerStat.FIRE_DELAY, -0.5), 8],
     ];
     const six: Array<[StatOption, float]> = [ // Two are chosen
-        [new StatOption(PlayerStat.DAMAGE, 1.4, true), 15], // Multiplier. x1.4 and not +1.4
+        [new StatOption(PlayerStat.DAMAGE, 1.2, true), 15], // Multiplier. x1.4 and not +1.4
         [new StatOption(PlayerStat.FIRE_DELAY, -0.8), 10],
         [new StatOption(PlayerStat.FIRE_DELAY, 0.75, true), 10], // 0.75x multiplier
         [new StatOption(PlayerStat.LUCK, 4), 3],
