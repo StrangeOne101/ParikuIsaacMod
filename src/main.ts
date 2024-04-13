@@ -2,6 +2,7 @@ import { name } from "../package.json";
 import { upgradeMod, ISCFeature } from "isaacscript-common";
 import * as statTracker from "./stat_tracker";
 import * as costumes from "./costumes";
+import * as birthright from "./birthright";
 import { PARIKU_TYPE } from "./constants";
 import { CacheFlag } from "isaac-typescript-definitions";
 
@@ -19,6 +20,8 @@ export function main(): void {
     costumes.init(mod);
     Isaac.DebugString("Initializing Pariku Stat Tracker...")
     statTracker.init(mod);
+    Isaac.DebugString("Initializing Pariku Birthright...")
+    birthright.init(mod);
 
 
     const parikuDefaultStats = new Map<CacheFlag, number>([

@@ -17,6 +17,8 @@ Loosing these soul hearts (or black hearts) will also revert the buff. This mean
 
 Stat buffs will also get better the more soul hearts you gain. The first few buffs will be minimal, but as you gain more than 6+ hearts, the buffs will start getting better and better.
 
+Pariku's Birthright will also give her charm tears and increase the chance of familiar items appearing
+
 [img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-credits.png[/img]
 
 Thumnail - [url=https://twitter.com/its_nato0]ItsNato0[/url]
@@ -31,15 +33,15 @@ I also highly recommend Ferpe’s textures and Nato’s art! They are fantastic 
 
 [img]https://raw.githubusercontent.com/StrangeOne101/ParikuIsaacMod/master/docs/header-future.png[/img]
 
-As it stands, this mod is just in version 1.0. This is the initial release, and I definitely want to add more to the mod. BUT, as it stands, I want to make sure future content has the same quality as all the existing content does.
+As it stands, this mod is in its infancy, but I definitely want to add more to the mod. That said, I want to make sure future content has the same quality as all the existing content does.
 
-This means, that although I’d love to add more content such as items, familiars, birthright (and a Tainted version of Pariku), I’d prefer if I could commission the sprites for them rather than do them myself. I’m a programmer and not an artist; I struggle with basic textures lol.
+This means, that although I’d love to add more content such as items, familiars and a Tainted version of Pariku, I’d prefer if I could commission the sprites for them rather than do them myself. I’m a programmer and not an artist; I struggle with basic textures. So until I can commission more, additional content will be slow.
 
-So while I try to obtain funds to commission textures, I’m open to discussion on what should be added. Check out the GitHub discussions pages.
+Any funds donated towards the mod will go towards more high quality sprites and content. So if you like this mod, and can spare it, please consider donating :)
 
 [hr]
 If you find any issues with this mod, or have any suggestions, please put them on our [url=https://github.com/StrangeOne101/ParikuIsaacMod]GitHub page![/url]</description>
-  <version>1.1</version>
+  <version>2.0</version>
   <tag id="Lua"/>
   <tag id="Player Characters"/>
   <id>3215057720</id>
