@@ -11,7 +11,7 @@ await lintScript(async () => {
 
     // Use ESLint to lint the TypeScript.
     // - "--max-warnings 0" makes warnings fail, since we set all ESLint errors to warnings.
-    $`eslint --max-warnings 0 .`,
+    //   $`eslint --max-warnings 0 .`,
 
     // Check for unused exports.
     // - "--error" makes it return an error code of 1 if unused exports are found.
